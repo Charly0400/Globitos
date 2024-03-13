@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 
 public class SelectionBallons : MonoBehaviour
 {
+    Dictionary<GameObject, Color> originalColors = new Dictionary<GameObject, Color>();
+
     public int objectsToSelect = 3; // Número de objetos que se deben seleccionar para ser eliminados
     public float highlightIntensity = 2f; // Intensidad de la luz al seleccionar
 
@@ -43,32 +45,6 @@ public class SelectionBallons : MonoBehaviour
         }
     }
 
-    /* void Update()
-    {
-        // Detectar clics del mouse
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            // Hacer un raycast para detectar objetos con un collider
-            if (Physics.Raycast(ray, out hit))
-            {
-                GameObject hitObject = hit.collider.gameObject;
-
-                // Si el objeto ya está seleccionado, deselecciónalo
-                if (selectedObjects.Contains(hitObject))
-                {
-                    DeselectObject(hitObject);
-                }
-                else // De lo contrario, selecciónalo
-                {
-                    SelectObject(hitObject);
-                }
-            }
-        }
-    }¨*/
-
     void SelectObject(GameObject obj)
     {
         // Agregar el objeto a la lista de seleccionados
@@ -88,10 +64,7 @@ public class SelectionBallons : MonoBehaviour
 
     void DeselectObject(GameObject obj)
     {
-        // Quitar el objeto de la lista de seleccionados
         selectedObjects.Remove(obj);
-
-        // Restaurar el color original del objeto
         UnhighlightObject(obj);
     }
 
@@ -130,12 +103,8 @@ public class SelectionBallons : MonoBehaviour
         // Limpiar la lista de objetos seleccionados después de eliminarlos
         selectedObjects.Clear();
     }
-
-    Dictionary<GameObject, Color> originalColors = new Dictionary<GameObject, Color>(); // Variable para guardar los colores originales
-
     void HighlightObject(GameObject obj)
     {
-        // Aumentar temporalmente la intensidad de la luz del objeto seleccionado
         Renderer renderer = obj.GetComponent<Renderer>();
         if (renderer != null)
         {
@@ -148,7 +117,6 @@ public class SelectionBallons : MonoBehaviour
 
     void UnhighlightObject(GameObject obj)
     {
-        // Restaurar el color original del objeto
         Renderer renderer = obj.GetComponent<Renderer>();
         if (renderer != null)
         {

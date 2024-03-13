@@ -37,11 +37,10 @@ public class Timer : MonoBehaviour
 
     private void GameOver()
     {
-        //GetComponent<Animator>().SetTrigger("OpenGameOver");
         Time.timeScale = 0;
 
         gameOverPanel.SetActive(true); // Activar el panel de Game Over
-        // Aquí puedes agregar cualquier otra lógica que quieras ejecutar cuando el juego termine
+
     }
 
     private void UpdateTimerDisplay()

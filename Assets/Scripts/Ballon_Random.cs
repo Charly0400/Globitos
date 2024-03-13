@@ -42,7 +42,6 @@ public class Ballon_Random : MonoBehaviour
 
     void ResetLevel()
     {
-        // Reiniciar la cantidad de globos destruidos
         balloonsDestroyed = 0;
     }
 
@@ -52,7 +51,6 @@ public class Ballon_Random : MonoBehaviour
         {
             for (int i = 0; i < 3; i++)
             {
-                // Instanciar tres globos aleatorios en posiciones aleatorias dentro de la esfera de spawn
                 Vector3 randomDirection = Random.insideUnitSphere;
                 Vector3 randomPosition = transform.position + randomDirection * spawnRadius;
                 randomPosition = AvoidOverlap(randomPosition); // Evitar superposiciones
