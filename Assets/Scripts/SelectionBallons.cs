@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SelectionBallons : MonoBehaviour
 {
@@ -9,7 +10,40 @@ public class SelectionBallons : MonoBehaviour
 
     private List<GameObject> selectedObjects = new List<GameObject>();
 
-    void Update()
+    private InputCamera _inputCamera;
+    private void Awake()
+    {
+        _inputCamera = new InputCamera();
+        _inputCamera.Enable();
+    }
+    void Start()
+    {
+        _inputCamera.MouseClick.LeftClick.performed += LeftClick_performed;
+    }
+
+    private void LeftClick_performed(InputAction.CallbackContext obj)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        // Hacer un raycast para detectar objetos con un collider
+        if (Physics.Raycast(ray, out hit))
+        {
+            GameObject hitObject = hit.collider.gameObject;
+
+            // Si el objeto ya está seleccionado, deselecciónalo
+            if (selectedObjects.Contains(hitObject))
+            {
+                DeselectObject(hitObject);
+            }
+            else // De lo contrario, selecciónalo
+            {
+                SelectObject(hitObject);
+            }
+        }
+    }
+
+    /* void Update()
     {
         // Detectar clics del mouse
         if (Input.GetMouseButtonDown(0))
@@ -33,7 +67,7 @@ public class SelectionBallons : MonoBehaviour
                 }
             }
         }
-    }
+    }¨*/
 
     void SelectObject(GameObject obj)
     {

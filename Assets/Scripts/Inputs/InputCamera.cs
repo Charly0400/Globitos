@@ -136,6 +136,34 @@ public partial class @InputCamera : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""MouseClick"",
+            ""id"": ""fa398aab-f961-40a2-8767-b532a5f3961a"",
+            ""actions"": [
+                {
+                    ""name"": ""LeftClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""106f3863-7a72-4d0f-8d9b-6c47fc095d4d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f49f6d9f-90d2-424f-ab39-36b2fb373a9a"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -144,6 +172,9 @@ public partial class @InputCamera : IInputActionCollection2, IDisposable
         m_Camera = asset.FindActionMap("Camera", throwIfNotFound: true);
         m_Camera_Movement = m_Camera.FindAction("Movement", throwIfNotFound: true);
         m_Camera_CameraMove = m_Camera.FindAction("CameraMove", throwIfNotFound: true);
+        // MouseClick
+        m_MouseClick = asset.FindActionMap("MouseClick", throwIfNotFound: true);
+        m_MouseClick_LeftClick = m_MouseClick.FindAction("LeftClick", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -240,9 +271,46 @@ public partial class @InputCamera : IInputActionCollection2, IDisposable
         }
     }
     public CameraActions @Camera => new CameraActions(this);
+
+    // MouseClick
+    private readonly InputActionMap m_MouseClick;
+    private IMouseClickActions m_MouseClickActionsCallbackInterface;
+    private readonly InputAction m_MouseClick_LeftClick;
+    public struct MouseClickActions
+    {
+        private @InputCamera m_Wrapper;
+        public MouseClickActions(@InputCamera wrapper) { m_Wrapper = wrapper; }
+        public InputAction @LeftClick => m_Wrapper.m_MouseClick_LeftClick;
+        public InputActionMap Get() { return m_Wrapper.m_MouseClick; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MouseClickActions set) { return set.Get(); }
+        public void SetCallbacks(IMouseClickActions instance)
+        {
+            if (m_Wrapper.m_MouseClickActionsCallbackInterface != null)
+            {
+                @LeftClick.started -= m_Wrapper.m_MouseClickActionsCallbackInterface.OnLeftClick;
+                @LeftClick.performed -= m_Wrapper.m_MouseClickActionsCallbackInterface.OnLeftClick;
+                @LeftClick.canceled -= m_Wrapper.m_MouseClickActionsCallbackInterface.OnLeftClick;
+            }
+            m_Wrapper.m_MouseClickActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @LeftClick.started += instance.OnLeftClick;
+                @LeftClick.performed += instance.OnLeftClick;
+                @LeftClick.canceled += instance.OnLeftClick;
+            }
+        }
+    }
+    public MouseClickActions @MouseClick => new MouseClickActions(this);
     public interface ICameraActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnCameraMove(InputAction.CallbackContext context);
+    }
+    public interface IMouseClickActions
+    {
+        void OnLeftClick(InputAction.CallbackContext context);
     }
 }
