@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -671,6 +671,11 @@ MonoBehaviour:
   - {fileID: 4855345339705274974, guid: 6712aaa4c2224dd4bb7f34edb269e7ff, type: 3}
   - {fileID: 1927621337404799342, guid: c317a8bfcce7dae4182b2e1eeb022c29, type: 3}
   - {fileID: 2276213098706560800, guid: 21bf8ead0b507914ea6c3da8f33fc714, type: 3}
+  - {fileID: 4313043960140550954, guid: aa56019a656b0924ba4c258d997ac071, type: 3}
+  - {fileID: 2276213098706560800, guid: 3d98bf40efe823640a6c19ca3d4334d2, type: 3}
+  - {fileID: 2840075618064269501, guid: 963f175990f10cc43a4fc2f6c6776abb, type: 3}
+  - {fileID: 1927621337404799342, guid: db9a2c90f4059fb49acca82acd7f5406, type: 3}
+  - {fileID: 4855345339705274974, guid: 2d1c04dd2dd8cfa41b593d34cbeba04a, type: 3}
   spawnRadius: 5
   spawnOverlapMask:
     serializedVersion: 2
