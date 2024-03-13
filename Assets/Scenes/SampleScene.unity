@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &538152976
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3c3f7751f69bd42af7594d761718fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceMovement: 1
+  forceMovement: 100
   cameraLook: {fileID: 1851501144}
 --- !u!1 &1851501142
 GameObject:
