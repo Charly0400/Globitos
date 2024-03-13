@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Ballon_Random : MonoBehaviour
 {
+    public Timer timer;
     public int currentLevel = 1; // Nivel actual
     public int minBalloonsPerLevel = 6; // Cantidad mínima de globos por nivel
     public int maxBalloonsPerLevel = 15; // Cantidad máxima de globos por nivel
@@ -18,6 +19,18 @@ public class Ballon_Random : MonoBehaviour
     void Start()
     {
         StartLevel(currentLevel);
+    }
+
+    void Update()
+    {
+        // Verificar si no quedan globos en la escena
+        GameObject[] balloons = GameObject.FindGameObjectsWithTag("Balloon");
+        if (balloons.Length == 0)
+        {
+            // No quedan globos, cargar el siguiente nivel
+            LoadNextLevel();
+            timer.ResetTimer();
+        }
     }
 
     void StartLevel(int level)
@@ -97,16 +110,5 @@ public class Ballon_Random : MonoBehaviour
 
         // Reiniciar el nivel actual
         StartLevel(currentLevel);
-    }
-
-    void Update()
-    {
-        // Verificar si no quedan globos en la escena
-        GameObject[] balloons = GameObject.FindGameObjectsWithTag("Balloon");
-        if (balloons.Length == 0)
-        {
-            // No quedan globos, cargar el siguiente nivel
-            LoadNextLevel();
-        }
     }
 }
