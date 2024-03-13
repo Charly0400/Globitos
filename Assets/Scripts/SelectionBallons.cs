@@ -5,6 +5,7 @@ using UnityEngine;
 public class SelectionBallons : MonoBehaviour
 {
     public int objectsToSelect = 3; // Número de objetos que se deben seleccionar para ser eliminados
+    public float highlightIntensity = 2f; // Intensidad de la luz al seleccionar
 
     private List<GameObject> selectedObjects = new List<GameObject>();
 
@@ -21,43 +22,109 @@ public class SelectionBallons : MonoBehaviour
             {
                 GameObject hitObject = hit.collider.gameObject;
 
-                // Verificar si el objeto no está en la lista de objetos seleccionados
-                if (!selectedObjects.Contains(hitObject))
+                // Si el objeto ya está seleccionado, deselecciónalo
+                if (selectedObjects.Contains(hitObject))
                 {
-                    // Agregar el objeto a la lista de seleccionados
-                    selectedObjects.Add(hitObject);
-
-                    // Si hemos seleccionado el número necesario de objetos, verificar si tienen el mismo tag
-                    if (selectedObjects.Count == objectsToSelect)
-                    {
-                        CheckAndDestroy();
-                        // Limpiar la lista de objetos seleccionados después de eliminarlos
-                        selectedObjects.Clear();
-                    }
+                    DeselectObject(hitObject);
+                }
+                else // De lo contrario, selecciónalo
+                {
+                    SelectObject(hitObject);
                 }
             }
         }
     }
 
+    void SelectObject(GameObject obj)
+    {
+        // Agregar el objeto a la lista de seleccionados
+        selectedObjects.Add(obj);
+
+        // Iluminar el objeto seleccionado
+        HighlightObject(obj);
+
+        // Si hemos seleccionado el número necesario de objetos, verificar si tienen el mismo tag
+        if (selectedObjects.Count == objectsToSelect)
+        {
+            CheckAndDestroy();
+            // Limpiar la lista de objetos seleccionados después de eliminarlos
+            selectedObjects.Clear();
+        }
+    }
+
+    void DeselectObject(GameObject obj)
+    {
+        // Quitar el objeto de la lista de seleccionados
+        selectedObjects.Remove(obj);
+
+        // Restaurar el color original del objeto
+        UnhighlightObject(obj);
+    }
+
     void CheckAndDestroy()
     {
-        // Verificar si todos los objetos seleccionados tienen el mismo tag
-        if (selectedObjects.Count < objectsToSelect)
+        // Crear una copia de la lista de objetos seleccionados
+        List<GameObject> objectsToRemove = new List<GameObject>(selectedObjects);
+
+        // Verificar si se han seleccionado suficientes objetos
+        if (objectsToRemove.Count < objectsToSelect)
             return;
 
-        string tagToMatch = selectedObjects[0].tag;
-        foreach (GameObject obj in selectedObjects)
+        // Obtener el tag del primer objeto seleccionado
+        string tagToMatch = objectsToRemove[0].tag;
+
+        // Verificar si todos los objetos seleccionados tienen el mismo tag
+        foreach (GameObject obj in objectsToRemove)
         {
             if (obj.tag != tagToMatch)
             {
-                return; // Si los tags no coinciden, salimos de la función sin hacer nada
+                // Si los tags no coinciden, deseleccionar todos los objetos y salir de la función
+                foreach (GameObject selectedObj in objectsToRemove)
+                {
+                    DeselectObject(selectedObj);
+                }
+                return;
             }
         }
 
-        // Si los tags coinciden, eliminamos los objetos seleccionados
-        foreach (GameObject obj in selectedObjects)
+        // Si todos los objetos tienen el mismo tag, eliminarlos
+        foreach (GameObject obj in objectsToRemove)
         {
             Destroy(obj);
+        }
+
+        // Limpiar la lista de objetos seleccionados después de eliminarlos
+        selectedObjects.Clear();
+    }
+
+    Dictionary<GameObject, Color> originalColors = new Dictionary<GameObject, Color>(); // Variable para guardar los colores originales
+
+    void HighlightObject(GameObject obj)
+    {
+        // Aumentar temporalmente la intensidad de la luz del objeto seleccionado
+        Renderer renderer = obj.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            Material material = renderer.material;
+            originalColors[obj] = material.color; // Guardar el color original
+            Color originalColor = originalColors[obj];
+            material.color = originalColor * highlightIntensity;
+        }
+    }
+
+    void UnhighlightObject(GameObject obj)
+    {
+        // Restaurar el color original del objeto
+        Renderer renderer = obj.GetComponent<Renderer>();
+        if (renderer != null)
+        {
+            Material material = renderer.material;
+            if (originalColors.ContainsKey(obj)) // Verificar si el objeto tiene un color original guardado
+            {
+                Color originalColor = originalColors[obj];
+                material.color = originalColor; // Restaurar el color original
+                originalColors.Remove(obj); // Eliminar el color original guardado
+            } 
         }
     }
 }
