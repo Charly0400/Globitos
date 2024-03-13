@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2601027364053316793}
   - component: {fileID: 2222486823082854422}
   m_Layer: 3
-  m_Name: Balloon (3)
-  m_TagString: azul
+  m_Name: azul
+  m_TagString: Balloon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

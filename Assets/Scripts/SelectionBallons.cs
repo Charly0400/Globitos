@@ -43,7 +43,7 @@ public class SelectionBallons : MonoBehaviour
         // Iluminar el objeto seleccionado
         HighlightObject(obj);
 
-        // Si hemos seleccionado el número necesario de objetos, verificar si tienen el mismo tag
+        // Si hemos seleccionado el número necesario de objetos, verificar si tienen el mismo nombre
         if (selectedObjects.Count == objectsToSelect)
         {
             CheckAndDestroy();
@@ -70,15 +70,15 @@ public class SelectionBallons : MonoBehaviour
         if (objectsToRemove.Count < objectsToSelect)
             return;
 
-        // Obtener el tag del primer objeto seleccionado
-        string tagToMatch = objectsToRemove[0].tag;
+        // Obtener el nombre del primer objeto seleccionado
+        string nameToMatch = objectsToRemove[0].name;
 
-        // Verificar si todos los objetos seleccionados tienen el mismo tag
+        // Verificar si todos los objetos seleccionados tienen el mismo nombre
         foreach (GameObject obj in objectsToRemove)
         {
-            if (obj.tag != tagToMatch)
+            if (obj.name != nameToMatch)
             {
-                // Si los tags no coinciden, deseleccionar todos los objetos y salir de la función
+                // Si los nombres no coinciden, deseleccionar todos los objetos y salir de la función
                 foreach (GameObject selectedObj in objectsToRemove)
                 {
                     DeselectObject(selectedObj);
@@ -87,7 +87,7 @@ public class SelectionBallons : MonoBehaviour
             }
         }
 
-        // Si todos los objetos tienen el mismo tag, eliminarlos
+        // Si todos los objetos tienen el mismo nombre, eliminarlos
         foreach (GameObject obj in objectsToRemove)
         {
             Destroy(obj);
@@ -124,7 +124,7 @@ public class SelectionBallons : MonoBehaviour
                 Color originalColor = originalColors[obj];
                 material.color = originalColor; // Restaurar el color original
                 originalColors.Remove(obj); // Eliminar el color original guardado
-            } 
+            }
         }
     }
 }

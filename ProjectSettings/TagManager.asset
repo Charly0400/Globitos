@@ -4,11 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - rojo
-  - azul
-  - morado
-  - verde
-  - amarillo
+  - Undefined
+  - BalloonPrefab
+  - Balloon
   layers:
   - Default
   - TransparentFX

@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Ballon_Random : MonoBehaviour
+public class LevelManager : MonoBehaviour
 {
     public int currentLevel = 1; // Nivel actual
     public int minBalloonsPerLevel = 6; // Cantidad mínima de globos por nivel
@@ -10,10 +11,6 @@ public class Ballon_Random : MonoBehaviour
     public int balloonsPerLevel = 0; // Cantidad de globos por nivel actual
 
     private int balloonsDestroyed = 0; // Cantidad de globos destruidos en el nivel actual
-
-    public GameObject[] balloonPrefabs; // Lista de prefabs de globos
-    public float spawnRadius = 5f; // Radio de la esfera de spawn
-    public LayerMask spawnOverlapMask; // Capa para detectar colisiones al spawnear
 
     void Start()
     {
@@ -35,48 +32,21 @@ public class Ballon_Random : MonoBehaviour
 
     void SpawnBalloons()
     {
-        foreach (GameObject balloonPrefab in balloonPrefabs)
+        // Generar los globos para el nivel actual
+        for (int i = 0; i < balloonsPerLevel; i++)
         {
-            for (int i = 0; i < 3; i++)
-            {
-                // Instanciar tres globos aleatorios en posiciones aleatorias dentro de la esfera de spawn
-                Vector3 randomDirection = Random.insideUnitSphere;
-                Vector3 randomPosition = transform.position + randomDirection * spawnRadius;
-                randomPosition = AvoidOverlap(randomPosition); // Evitar superposiciones
-
-                Instantiate(balloonPrefab, randomPosition, Quaternion.identity);
-            }
+            // Instanciar los globos en posiciones aleatorias dentro de la escena
+            Vector3 randomPosition = new Vector3(Random.Range(-10f, 10f), Random.Range(1f, 5f), Random.Range(-10f, 10f));
+            GameObject balloon = Instantiate(GetRandomBalloonPrefab(), randomPosition, Quaternion.identity);
         }
     }
 
     GameObject GetRandomBalloonPrefab()
     {
-        // Retorna un prefab de globo aleatorio de la lista de prefabs
-        int randomIndex = Random.Range(0, balloonPrefabs.Length);
-        return balloonPrefabs[randomIndex];
-    }
-
-    Vector3 AvoidOverlap(Vector3 position)
-    {
-        // Evitar superposiciones al spawnear los globos
-        Collider[] colliders = Physics.OverlapSphere(position, 0.1f, spawnOverlapMask);
-        int maxAttempts = 100;
-        int attempts = 0;
-        while (colliders.Length > 0 && attempts < maxAttempts)
-        {
-            Vector3 randomDirection = Random.insideUnitSphere;
-            position = transform.position + randomDirection * spawnRadius;
-            colliders = Physics.OverlapSphere(position, 0.1f, spawnOverlapMask);
-            attempts++;
-        }
-        return position;
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        // Dibujar el gizmo de la esfera de spawn en el editor de Unity
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, spawnRadius);
+        // Retorna un prefab de globo aleatorio
+        // Aquí deberías implementar la lógica para obtener un prefab de globo de manera aleatoria
+        // Por ahora, simplemente retornaremos el primer prefab de la lista
+        return Resources.Load<GameObject>("BalloonPrefab");
     }
 
     public void BalloonDestroyed()

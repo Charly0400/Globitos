@@ -645,19 +645,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82b1b890a4a31034ab642f12ccddf336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabs:
-  - {fileID: 4313043960140550954, guid: 7174085b29e99f14e89584f2b70870c7, type: 3}
+  currentLevel: 1
+  minBalloonsPerLevel: 6
+  maxBalloonsPerLevel: 15
+  balloonsPerLevel: 0
+  balloonPrefabs:
   - {fileID: 2840075618064269501, guid: f2bdf66d66b773d4688145a3d8136c58, type: 3}
+  - {fileID: 4313043960140550954, guid: 7174085b29e99f14e89584f2b70870c7, type: 3}
+  - {fileID: 4855345339705274974, guid: 6712aaa4c2224dd4bb7f34edb269e7ff, type: 3}
   - {fileID: 1927621337404799342, guid: c317a8bfcce7dae4182b2e1eeb022c29, type: 3}
   - {fileID: 2276213098706560800, guid: 21bf8ead0b507914ea6c3da8f33fc714, type: 3}
-  - {fileID: 4855345339705274974, guid: 6712aaa4c2224dd4bb7f34edb269e7ff, type: 3}
-  - {fileID: 4313043960140550954, guid: 7174085b29e99f14e89584f2b70870c7, type: 3}
-  - {fileID: 2840075618064269501, guid: f2bdf66d66b773d4688145a3d8136c58, type: 3}
-  - {fileID: 1927621337404799342, guid: c317a8bfcce7dae4182b2e1eeb022c29, type: 3}
-  - {fileID: 2276213098706560800, guid: 21bf8ead0b507914ea6c3da8f33fc714, type: 3}
-  - {fileID: 4855345339705274974, guid: 6712aaa4c2224dd4bb7f34edb269e7ff, type: 3}
-  sphereRadius: 5
-  overlapLayerMask:
+  spawnRadius: 5
+  spawnOverlapMask:
     serializedVersion: 2
     m_Bits: 8
 --- !u!4 &1851501144
