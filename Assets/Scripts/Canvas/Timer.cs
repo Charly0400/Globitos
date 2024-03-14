@@ -60,6 +60,7 @@ public class Timer : MonoBehaviour
 
     public void Restart()
     {
+        //Función que reseteé todo a su lugar
         SceneManager.LoadScene(0);
     }
 }
