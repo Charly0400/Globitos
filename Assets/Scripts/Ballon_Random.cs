@@ -5,14 +5,14 @@ using UnityEngine;
 public class Ballon_Random : MonoBehaviour
 {
     public Timer timer;
-    public int currentLevel = 1; // Nivel actual
-    public int minBalloonsPerLevel = 6; // Cantidad mínima de globos por nivel
-    public int maxBalloonsPerLevel = 15; // Cantidad máxima de globos por nivel
-    public int balloonsPerLevel = 0; // Cantidad de globos por nivel actual
+    public int currentLevel = 1; 
+    public int minBalloonsPerLevel = 6; 
+    public int maxBalloonsPerLevel = 15;
+    public int balloonsPerLevel = 0; 
 
-    private int balloonsDestroyed = 0; // Cantidad de globos destruidos en el nivel actual
+    private int balloonsDestroyed = 0; 
 
-    public GameObject[] balloonPrefabs; // Lista de prefabs de globos
+    public GameObject[] balloonPrefabs;
     public float spawnRadius = 5f; // Radio de la esfera de spawn
     public LayerMask spawnOverlapMask; // Capa para detectar colisiones al spawnear
 
@@ -35,9 +35,9 @@ public class Ballon_Random : MonoBehaviour
 
     void StartLevel(int level)
     {
-        ResetLevel(); // Reiniciar el nivel
-        balloonsPerLevel = Random.Range(minBalloonsPerLevel, maxBalloonsPerLevel + 1); // Seleccionar aleatoriamente la cantidad de globos para el nivel actual
-        SpawnBalloons(); // Generar globos para el nivel actual
+        ResetLevel(); 
+        balloonsPerLevel = Random.Range(minBalloonsPerLevel, maxBalloonsPerLevel + 1); 
+        SpawnBalloons();
     }
 
     void ResetLevel()
@@ -85,7 +85,6 @@ public class Ballon_Random : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        // Dibujar el gizmo de la esfera de spawn en el editor de Unity
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, spawnRadius);
     }

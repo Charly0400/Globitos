@@ -525,7 +525,7 @@ MonoBehaviour:
   timer: {fileID: 6273953364185192980}
   currentLevel: 1
   minBalloonsPerLevel: 6
-  maxBalloonsPerLevel: 15
+  maxBalloonsPerLevel: 10
   balloonsPerLevel: 0
   balloonPrefabs:
   - {fileID: 2840075618064269501, guid: f2bdf66d66b773d4688145a3d8136c58, type: 3}
@@ -2423,7 +2423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe4bc1de8efdbfb4682670da9ed75b9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialTimerDuration: 21
+  initialTimerDuration: 26
   gameOverPanel: {fileID: 6273953364464887444}
 --- !u!222 &6273953364185192981
 CanvasRenderer:

@@ -20,7 +20,6 @@ public class CamaraMovement : MonoBehaviour
     }
     void Start()
     {
-        //inputCamera.Camera.Movement.performed += CamaraMovement;
 
     }
 

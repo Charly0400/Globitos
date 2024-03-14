@@ -47,10 +47,7 @@ public class SelectionBallons : MonoBehaviour
 
     void SelectObject(GameObject obj)
     {
-        // Agregar el objeto a la lista de seleccionados
         selectedObjects.Add(obj);
-
-        // Iluminar el objeto seleccionado
         HighlightObject(obj);
 
         // Si hemos seleccionado el número necesario de objetos, verificar si tienen el mismo nombre

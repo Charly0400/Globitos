@@ -26,12 +26,12 @@ public class Timer : MonoBehaviour
     {
         if (currentTimer > 0)
         {
-            currentTimer -= Time.deltaTime; // Actualizar el temporizador cada cuadro
-            UpdateTimerDisplay(); // Actualizar la pantalla del temporizador cada vez que cambie
+            currentTimer -= Time.deltaTime; 
+            UpdateTimerDisplay(); 
         }
         else
         {
-            GameOver(); // Llamar al método de Game Over cuando el temporizador llegue a cero
+            GameOver(); 
         }
     }
 
@@ -45,7 +45,7 @@ public class Timer : MonoBehaviour
 
     private void UpdateTimerDisplay()
     {
-        // Obtener el componente TextMeshProUGUI del objeto
+
         TextMeshProUGUI timerLbl = GetComponent<TextMeshProUGUI>();
         if (timerLbl != null)
         {
